@@ -1,7 +1,11 @@
 'use strict';
 const {
-  Model
+  Model,
+  Validator
 } = require('sequelize');
+
+const bcrypt = require("bcryptjs");
+
 module.exports = (sequelize, DataTypes) => {
   class BadIdea extends Model {
     /**
@@ -11,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      BadIdea.belongsTo(models.User, { foreignKey: 'userId' })
     }
   }
   BadIdea.init({
