@@ -12,7 +12,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 
-store.dispatch.arguments(api.endpoints.restore.initiate("/"))
+store.dispatch(api.endpoints.restore.initiate("/"))
 
 root.render(
   <React.StrictMode>

@@ -29,17 +29,22 @@ export interface restoreRequest {
 
 // this is where the rtk query functions are created and passed from. RTK Query makes an async call to the route in the server
 export const api = createApi({
-    // the base query is the first query made when a user goes to the home url, in this case "/"
+    // the base query is the first query before then doing an endpoint
     baseQuery: fetchBaseQuery({
         baseUrl: '/',
         prepareHeaders: async (headers, endpoints) => {
+            console.log('fired base')
             const authToken = getCSRFCookie("XSRF-TOKEN")
+
+            console.log(authToken)
 
             if (authToken) {
                 headers.set('XSRF-TOKEN', authToken);
             }
 
             headers.set('Content-type', 'application/json')
+
+            console.log(headers)
 
             return headers
         }
@@ -49,15 +54,15 @@ export const api = createApi({
 
         // endpoint for csrfrestore
         restore: builder.query({  // builder.query creates an async function which makes a query to the api on the server
-            query: () => 'api/csrf/restore'
+            query: () => 'api/csrf/restore/'
         }),
         // login endpoint
         login: builder.mutation<UserResponse, LoginRequest>({ //builder.mutation allows for the query to send updates to the server and apply the changes to the local cache, it also checks that the request and response are the appropriate data Types
             query: (credentials) => ({
-                url: '/api/users/log-in',
+                url: '/api/users/log-in/',
                 method: 'POST',
                 body: JSON.stringify(credentials)
-            })
+            }),
         }),
         // protectedmutation
         protected: builder.mutation<{ message: string }, void>({
@@ -66,4 +71,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery } = api;
+export const { useLoginMutation, useRestoreQuery, } = api;

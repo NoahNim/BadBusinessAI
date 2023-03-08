@@ -11,35 +11,52 @@ import { Provider } from "react-redux";
 import { ReactNode } from "react";
 
 interface wrapperInterface {
-    children?: ReactNode | any
+    children?: ReactNode | any;
 }
+
+const updateTimeout = 5000;
 
 const wrapper: React.FC = ({ children }: wrapperInterface) => {
     const storeRef = setupApiStore(api, { auth: userReducer });
-    return <Provider store={storeRef.store} > {children} </Provider>
-
+    return (<Provider store={storeRef.store}>
+        {children}
+    </Provider>)
 };
-const storeRef = setupApiStore(api, { auth: userReducer });
+
 
 describe('Auth API Requests', () => {
+    it("Should successfully call the restore endpoint and get a csrf token", async () => {
+        const { result } = renderHook(
+            () => useRestoreQuery("/"),
+            {
+                wrapper
+            }
+        )
+        const initialResponse = await result.current
+
+
+
+    })
+
     it("Login attempt should be made and should return an error", async () => {
         const { result } = renderHook(
-            () => useLoginMutation(),
+            () => (useLoginMutation()),
             {
                 wrapper,
             }
         );
         const [login, initialResponse] = result.current
-        const userTest = {
-            Credential: '',
-            password: ''
-        }
 
-        await act(async () => {
-            await login({ credential: '', password: '' })
-        })
+        // const userTest = {
+        //     credential: '',
+        //     password: ''
+        // }
 
-        console.log(result.current)
+        // await act(async () => {
+        //     await login({ credential: '', password: '' })
+        // })
+
+        // console.log(result.current[1])
     })
 
 

@@ -1,9 +1,9 @@
 /**
  * @jest-environment jsdom
- * @jest-environment-options {"url": "http://localhost:3000/"}
+ * @jest-environment-options {"url": "http://localhost:3000/" }
  */
-
 import { sum } from "./sumtest";
+import { listCookies } from "../redux/app/hooks";
 
 test('adds 1 + 2 to equal 3', () => {
     expect(sum(1, 2)).toBe(3);
