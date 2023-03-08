@@ -1,6 +1,10 @@
+/**
+ * @jest-environment jsdom
+ * @jest-environment-options {"url": "http://localhost:3000/"}
+ */
 import React from "react";
-import { renderHook } from "@testing-library/react";
-import { api, useLoginMutation } from "../../redux/app/services/api";
+import { renderHook, act } from "@testing-library/react";
+import { api, useLoginMutation, useRestoreQuery } from "../../redux/app/services/api";
 import userReducer from "../../redux/features/auth/userSlice";
 import { setupApiStore } from "../testUtils";
 import { Provider } from "react-redux";
@@ -15,21 +19,27 @@ const wrapper: React.FC = ({ children }: wrapperInterface) => {
     return <Provider store={storeRef.store} > {children} </Provider>
 
 };
+const storeRef = setupApiStore(api, { auth: userReducer });
 
 describe('Auth API Requests', () => {
-
-
-    it("Internal Server Error", async () => {
+    it("Login attempt should be made and should return an error", async () => {
         const { result } = renderHook(
-            () => useLoginMutation(undefined),
+            () => useLoginMutation(),
             {
                 wrapper,
             }
         );
-        const [initialResponse] = result.current
+        const [login, initialResponse] = result.current
+        const userTest = {
+            Credential: '',
+            password: ''
+        }
 
-        expect(initialResponse).rejects
+        await act(async () => {
+            await login({ credential: '', password: '' })
+        })
 
+        console.log(result.current)
     })
 
 
