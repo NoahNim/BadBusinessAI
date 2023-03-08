@@ -59,5 +59,11 @@ export const api = createApi({
                 body: JSON.stringify(credentials)
             })
         }),
+        // protectedmutation
+        protected: builder.mutation<{ message: string }, void>({
+            query: () => 'protected',
+        }),
     })
 })
+
+export const { useLoginMutation } = api;
