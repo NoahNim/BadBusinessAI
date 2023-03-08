@@ -26,3 +26,20 @@ export interface restoreRequest {
     user: User;
 }
 
+export const api = createApi({
+    baseQuery: fetchBaseQuery({
+        baseUrl: '/',
+        prepareHeaders: async (headers, endpoints) => {
+            const authToken = getCSRFCookie("XSRF-TOKEN")
+
+            if (authToken) {
+                headers.set('XSRF-TOKEN', authToken);
+            }
+
+            return headers
+        }
+    }),
+    endpoints: (builder) => ({
+
+    })
+})
