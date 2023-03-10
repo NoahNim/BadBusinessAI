@@ -60,6 +60,10 @@ export const api = createApi({
                 body: JSON.stringify(credentials)
             }),
         }),
+        // restore user
+        restoreUser: builder.mutation<UserResponse, restoreRequest>({
+            query: () => ('/api/users/')
+        }),
         // protectedmutation
         protected: builder.mutation<{ message: string }, void>({
             query: () => 'protected',
@@ -67,4 +71,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation } = api;
