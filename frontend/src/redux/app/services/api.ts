@@ -36,15 +36,11 @@ export const api = createApi({
             console.log('fired base')
             const authToken = getCSRFCookie("XSRF-TOKEN")
 
-            console.log(authToken)
-
             if (authToken) {
                 headers.set('XSRF-TOKEN', authToken);
             }
 
             headers.set('Content-type', 'application/json')
-
-            console.log(headers)
 
             return headers
         }

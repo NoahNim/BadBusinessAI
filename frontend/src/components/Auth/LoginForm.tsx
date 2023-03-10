@@ -8,7 +8,6 @@ import Form from 'react-bootstrap/Form';
 export const LoginForm = () => {
     const [formState, setFormState] = useState({
         credential: "",
-        email: "",
         password: "",
     })
     const dispatch = useAppDispatch();
@@ -24,42 +23,35 @@ export const LoginForm = () => {
         })
     }
 
-    // const loginSubmitFunction = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
+    const loginSubmitFunction = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    //     const user = { credential, password }
+        console.log(e)
 
-    //     try {
-    //         const res = await login(user).unwrap();
-    //         const logUser = { user: res.user, token: res.token }
-    //         dispatch(setUser(logUser));
-    //         setErrorList([])
-    //     } catch (error: any | unknown) {
-    //         const data = await error?.data.errors
-    //         console.log(data)
-    //         setErrorList(data)
-    //     }
-    // }
+        try {
+            const res = await login(formState).unwrap();
+            const logUser = { user: res.user, token: res.token }
+            dispatch(setUser(logUser));
+            setErrorList([])
+        } catch (error: any | unknown) {
+            const data = await error?.data.errors
+            console.log(data)
+            setErrorList(data)
+        }
+    }
 
     return (
-        <Form>
+        <Form noValidate onSubmit={loginSubmitFunction}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                </Form.Text>
+                <Form.Label>Email address or Username</Form.Label>
+                <Form.Control required name="credential" value={formState.credential} onChange={changeHandler} type="email" placeholder="Enter email" />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control required name="password" type="password" value={formState.password} onChange={changeHandler} placeholder="password" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
+            <Button type="submit">
+                Login
             </Button>
         </Form>
     );
