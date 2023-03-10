@@ -59,7 +59,7 @@ router.post(
 
 // Log in
 router.post(
-    '/log-in',
+    '/login',
     validateLogin,
     asyncHandler(async (req, res, next) => {
         const { credential, password } = req.body

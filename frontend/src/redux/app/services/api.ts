@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { url } from 'inspector';
+// import { url } from 'inspector';
 import { getCSRFCookie } from '../hooks';
 
 export interface User {
@@ -59,7 +59,7 @@ export const api = createApi({
         // login endpoint
         login: builder.mutation<UserResponse, LoginRequest>({ //builder.mutation allows for the query to send updates to the server and apply the changes to the local cache, it also checks that the request and response are the appropriate data Types
             query: (credentials) => ({
-                url: '/api/users/log-in/',
+                url: '/api/users/login/',
                 method: 'POST',
                 body: JSON.stringify(credentials)
             }),
