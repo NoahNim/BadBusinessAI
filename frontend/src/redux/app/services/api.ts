@@ -60,11 +60,20 @@ export const api = createApi({
                 body: JSON.stringify(credentials)
             }),
         }),
+        // register user
         signup: builder.mutation<UserResponse, Partial<User>>({
             query: (userInfo) => ({
                 url: "/api/users/sign-up",
                 method: "POST",
                 body: userInfo
+            })
+        }),
+        // logout user
+        logout: builder.query({
+            query: () => ({
+                url: '/api/users/',
+                method: "DELETE",
+                'XSRF-TOKEN': getCSRFCookie('XSRF-TOKEN')
             })
         }),
         // restore user
@@ -78,4 +87,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery } = api;
