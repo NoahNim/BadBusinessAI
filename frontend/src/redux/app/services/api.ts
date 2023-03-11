@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { url } from 'inspector';
 import { getCSRFCookie } from '../hooks';
-import { OpenAIApi, Configuration } from 'openai';
 
 export interface User {
     id: number;

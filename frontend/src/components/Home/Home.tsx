@@ -1,15 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import { useGetBadIdeaMutation } from '../../redux/app/services/api';
+import { useState } from 'react';
 
 export const Home = () => {
-
-    const [badidea, { isError, isLoading }] = useGetBadIdeaMutation()
+    const [badidea, setBadIdea] = useState<any>();
+    const [retrieveBadidea, { isError, isLoading }] = useGetBadIdeaMutation()
 
     const getBadIdeaHandler = async () => {
         try {
-            const res = await badidea("");
+            const res = await retrieveBadidea("");
             if (res) {
-                console.log(res)
+                setBadIdea(res)
             }
         } catch (error) {
             console.log(error)
@@ -19,10 +20,11 @@ export const Home = () => {
     return (
         <div>
             <div>
-                <Button onClick={getBadIdeaHandler}>Get A Bad Business Idea</Button>
+                <div>{badidea?.data?.split("Pitch:").map((idea: string) => <div>{idea}</div>)}</div>
                 <div style={isLoading ? { visibility: "visible" } : { visibility: "hidden" }}>
                     Loading
                 </div>
+                <Button onClick={getBadIdeaHandler}>Get A Bad Business Idea</Button>
             </div>
         </div>
     )
