@@ -5,7 +5,6 @@ import { store } from './redux/app/store';
 import { api } from './redux/app/services/api';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const container = document.getElementById('root')!;

@@ -2,9 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { url } from 'inspector';
 import { getCSRFCookie } from '../hooks';
 import { OpenAIApi, Configuration } from "openai"
+import { openAIApiKey } from '../../../apikey';
 
 export const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: openAIApiKey,
 });
 export const openai = new OpenAIApi(configuration);
 console.log(openai)
