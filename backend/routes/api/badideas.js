@@ -11,11 +11,13 @@ const openai = new OpenAIApi(configuration);
 
 
 router.post('/chatgpt', asyncHandler(async (req, res) => {
-    const res = await openai.createCompletion({
+    const badidea = await openai.createCompletion({
         modal: "gpt-3.5-turbo",
         prompt: "Give me a bad business idea and create a pitch for that bad business idea."
     })
-    return res.json();
+    return res.json({
+        badidea
+    });
 }))
 
 
