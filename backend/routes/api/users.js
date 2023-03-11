@@ -20,9 +20,15 @@ const validateSignup = [
     check('username')
         .not()
         .isEmail()
-        .withMessage('Username cannot be an email.')
-        .exists({ checkFalsy: true })
-        .withMessage("please input a username"),
+        .withMessage('Username cannot be an email.'),
+    check('username')
+        .custom(value => {
+            return User.findOne({ where: { username: value } }).then((user) => {
+                if (user) {
+                    return Promise.reject('Please provide an unused username with at least 4 characters but less than 30 characters.')
+                }
+            })
+        }),
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })

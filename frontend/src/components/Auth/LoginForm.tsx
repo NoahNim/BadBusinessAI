@@ -13,6 +13,8 @@ export const LoginForm = () => {
     const dispatch = useAppDispatch();
     const [login, { isError }] = useLoginMutation();
     const [errorList, setErrorList] = useState([]);
+    const [credentialError, setCredentialError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -33,22 +35,39 @@ export const LoginForm = () => {
             setErrorList([])
         } catch (error: any | unknown) {
             const data = await error?.data.errors
-            setErrorList(data)
+            if (data) {
+                data?.forEach((error: any) => {
+                    switch (error) {
+                        case "The provided credentials were invalid.":
+                            setCredentialError(error);
+                            setPasswordError(error);
+                            break;
+                        case "Please provide a valid email or username.":
+                            setCredentialError(error);
+                            break;
+                        case "Please provide a valid password.":
+                            setPasswordError(error)
+                            break;
+                        default:
+                            break;
+                    }
+                })
+            }
         }
     }
 
     return (
         <div className="container-md">
-            <Form className="d-flex flex-column" noValidate validated={isError} onSubmit={loginSubmitFunction}>
+            <Form className="d-flex flex-column" noValidate validated={isError === true ? false : true} onSubmit={loginSubmitFunction}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address or Username</Form.Label>
-                    <Form.Control className="border border-primary-subtle" required name="credential" value={formState.credential} onChange={changeHandler} type="email" placeholder="Enter email or username" />
-                    <Form.Control.Feedback type="invalid"> {errorList[0] === "Please provide a valid email or username." ? errorList[0] : null} </Form.Control.Feedback>
+                    <Form.Control isInvalid={credentialError !== null ? true : false} className="border border-primary-subtle" required name="credential" value={formState.credential} onChange={changeHandler} type="email" placeholder="Enter email or username" />
+                    <Form.Control.Feedback type="invalid"> {credentialError} </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control className="border border-primary-subtle" required name="password" type="password" value={formState.password} onChange={changeHandler} placeholder="Enter password" />
-                    <Form.Control.Feedback type="invalid"> {errorList[0] === "Please provide a valid password." || errorList[1] === "Please provide a valid password." ? "Please provide a valid password." : null} </Form.Control.Feedback>
+                    <Form.Control isInvalid={passwordError !== null ? true : false} className="border border-primary-subtle" required name="password" type="password" value={formState.password} onChange={changeHandler} placeholder="Enter password" />
+                    <Form.Control.Feedback type="invalid"> {passwordError} </Form.Control.Feedback>
                 </Form.Group>
                 <Button type="submit">
                     Login
