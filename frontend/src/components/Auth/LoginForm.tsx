@@ -33,20 +33,21 @@ export const LoginForm = () => {
             setErrorList([])
         } catch (error: any | unknown) {
             const data = await error?.data.errors
-            console.log(data)
             setErrorList(data)
         }
     }
 
     return (
-        <Form noValidate onSubmit={loginSubmitFunction}>
+        <Form noValidate validated={isError} onSubmit={loginSubmitFunction}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address or Username</Form.Label>
                 <Form.Control required name="credential" value={formState.credential} onChange={changeHandler} type="email" placeholder="Enter email" />
+                <Form.Control.Feedback type="invalid"> {errorList[0] === "Please provide a valid email or username." ? errorList[0] : null} </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control required name="password" type="password" value={formState.password} onChange={changeHandler} placeholder="password" />
+                <Form.Control.Feedback type="invalid"> {errorList[0] === "Please provide a valid password." || errorList[1] === "Please provide a valid password." ? "Please provide a valid password." : null} </Form.Control.Feedback>
             </Form.Group>
             <Button type="submit">
                 Login
