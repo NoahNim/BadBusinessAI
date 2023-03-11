@@ -11,6 +11,7 @@ export const Home = () => {
                 temperature: 0,
                 max_tokens: 7,
             });
+            console.log(res?.data?.choices)
         } catch (error) {
             console.log(error)
         }
