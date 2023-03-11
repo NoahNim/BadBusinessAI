@@ -1,6 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { url } from 'inspector';
 import { getCSRFCookie } from '../hooks';
+import { OpenAIApi, Configuration } from "openai"
+
+export const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+export const openai = new OpenAIApi(configuration);
+console.log(openai)
+
 
 export interface User {
     id: number;
@@ -47,7 +55,6 @@ export const api = createApi({
     }),
     // endpoints are the other queries to the API
     endpoints: (builder) => ({
-
         // endpoint for csrfrestore
         restore: builder.query({  // builder.query creates an async function which makes a query to the api on the server
             query: () => 'api/csrf/restore/'
@@ -80,6 +87,9 @@ export const api = createApi({
         restoreUser: builder.mutation<UserResponse, restoreRequest>({
             query: () => ('/api/users/')
         }),
+        // openAI call
+
+
         // protectedmutation
         protected: builder.mutation<{ message: string }, void>({
             query: () => 'protected',
