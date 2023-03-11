@@ -4,6 +4,7 @@ import { setUser } from "../../redux/features/auth/userSlice";
 import { useAppDispatch } from "../../redux/app/hooks";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
     const [formState, setFormState] = useState({
@@ -12,9 +13,9 @@ export const LoginForm = () => {
     })
     const dispatch = useAppDispatch();
     const [login, { isError }] = useLoginMutation();
-    const [errorList, setErrorList] = useState([]);
     const [credentialError, setCredentialError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
+    const navigate = useNavigate();
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -32,7 +33,9 @@ export const LoginForm = () => {
             const res = await login(formState).unwrap();
             const logUser = { user: res.user, token: res.token }
             dispatch(setUser(logUser));
-            setErrorList([])
+            setCredentialError(null);
+            setPasswordError(null);
+            navigate("/")
         } catch (error: any | unknown) {
             const data = await error?.data.errors
             if (data) {
