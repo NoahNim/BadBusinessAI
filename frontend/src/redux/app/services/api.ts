@@ -60,6 +60,13 @@ export const api = createApi({
                 body: JSON.stringify(credentials)
             }),
         }),
+        signup: builder.mutation<UserResponse, Partial<User>>({
+            query: (userInfo) => ({
+                url: "/api/users/sign-up",
+                method: "POST",
+                body: userInfo
+            })
+        }),
         // restore user
         restoreUser: builder.mutation<UserResponse, restoreRequest>({
             query: () => ('/api/users/')
@@ -71,4 +78,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation } = api;

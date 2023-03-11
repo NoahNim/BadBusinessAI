@@ -12,6 +12,7 @@ import { getCSRFCookie } from './redux/app/hooks';
 import { store } from './redux/app/store';
 import { restoreUser } from './redux/features/auth/userSlice';
 import { api } from './redux/app/services/api';
+import { SignUpForm } from './components/Auth/SignUpForm';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
         </Routes>
       </BrowserRouter>
     </div>
