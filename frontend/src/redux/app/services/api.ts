@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { url } from 'inspector';
 import { getCSRFCookie } from '../hooks';
+import { OpenAIApi, Configuration } from 'openai';
 
 export interface User {
     id: number;
@@ -80,8 +81,12 @@ export const api = createApi({
             query: () => ('/api/users/')
         }),
         // openAI call
-
-
+        getBadIdea: builder.mutation({
+            query: () => ({
+                url: '/api/badideas/chatgpt',
+                method: "POST"
+            })
+        }),
         // protectedmutation
         protected: builder.mutation<{ message: string }, void>({
             query: () => 'protected',
@@ -89,4 +94,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery, useGetBadIdeaMutation } = api;
