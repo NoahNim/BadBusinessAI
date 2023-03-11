@@ -5,23 +5,33 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^27.5.2",
+    "@types/jest": "^29.4.0",
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "babel-jest": "^29.5.0",
+    "bootstrap": "^5.3.0-alpha1",
+    "dotenv-webpack": "^8.0.1",
+    "openai": "^3.2.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-scripts": "5.0.1",
+    "react-router": "^6.9.0",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "whatwg-fetch": "^3.6.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start webpack serve --config ./webpack.config.js --mode development",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +51,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jsdom": "^21.1.0",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1"
   }
 }
