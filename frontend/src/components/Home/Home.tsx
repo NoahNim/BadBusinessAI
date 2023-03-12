@@ -20,11 +20,9 @@ export const Home = () => {
     return (
         <div>
             <div>
-                <div>{badidea?.data?.split("Pitch:").map((idea: string) => <div>{idea}</div>)}</div>
-                <div style={isLoading ? { visibility: "visible" } : { visibility: "hidden" }}>
-                    Loading
-                </div>
+                <div> {!isLoading ? <div>{badidea?.data}</div> : <div>Loading...</div>}</div>
                 <Button onClick={getBadIdeaHandler}>Get A Bad Business Idea</Button>
+
             </div>
         </div>
     )
