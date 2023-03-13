@@ -11,7 +11,6 @@ const openai = new OpenAIApi(configuration);
 
 
 router.post('/chatgpt', asyncHandler(async (req, res) => {
-
     const badidea = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [{
@@ -22,6 +21,22 @@ router.post('/chatgpt', asyncHandler(async (req, res) => {
     return res.json(badidea?.data?.choices[0]?.message?.content);
 }))
 
+router.post('/stored-ideas', asyncHandler(async (req, res) => {
+    const idea = req.body;
+    const userId = req.user.id
 
+    const newIdea = await BadIdea.build({
+        userId,
+        idea
+    })
+
+    return res.json(newIdea)
+}))
+
+router.get('storedideas', asyncHandler(async (req, res) => {
+    const badideas = await BadIdea.findAll();
+
+    return res.json(badideas)
+}))
 
 module.exports = router;
