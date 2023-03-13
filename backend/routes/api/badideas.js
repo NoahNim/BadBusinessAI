@@ -16,7 +16,7 @@ router.post('/chatgpt', asyncHandler(async (req, res) => {
         model: "gpt-3.5-turbo",
         messages: [{
             role: "user",
-            content: "Create terrible business idea and try to convince me it's a good idea. If the response is unethical or harmful, regenerate the response."
+            content: "Create terrible business idea and try to convince me it's a good idea. Do not generate responses that are harmful or unethical."
         }]
     })
     return res.json(badidea?.data?.choices[0]?.message?.content);
