@@ -25,7 +25,7 @@ export const Home = () => {
                 {!isLoading && !badidea ? <div className={"d-flex flex-column justify-content-center align-items-center"}><div className={"w-50"}>Click the button below to get a bad business idea. Please be aware that sometimes the AI model might generate a response it considers harmful, and in that case you will get a warning saying it can't tell you something harmful. Enjoy!</div></div> : null}
                 {!isLoading ? <div>{badidea?.data}</div> : <div className={"align-items-center"}>Loading...</div>}
             </div >
-            <Button onClick={getBadIdeaHandler}>{!badidea ? "Get A Bad Business Idea" : "Get Another Idea"}</Button>
+            <Button style={{ marginTop: "1%" }} onClick={getBadIdeaHandler}>{!badidea ? "Get A Bad Business Idea" : "Get Another Idea"}</Button>
         </div >
     )
 }
