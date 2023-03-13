@@ -11,6 +11,7 @@ const openai = new OpenAIApi(configuration);
 
 
 router.post('/chatgpt', asyncHandler(async (req, res) => {
+
     const badidea = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [{
