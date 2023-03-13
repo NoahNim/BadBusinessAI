@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -13,6 +13,7 @@ import { store } from './redux/app/store';
 import { restoreUser } from './redux/features/auth/userSlice';
 import { api } from './redux/app/services/api';
 import { SignUpForm } from './components/Auth/SignUpForm';
+import { StoredBadIdeas } from './components/StoredIdeas/StoredIdeas';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/stored-ideas" element={<StoredBadIdeas />} />
         </Routes>
       </BrowserRouter>
     </div>

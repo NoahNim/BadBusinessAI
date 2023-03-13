@@ -3,6 +3,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { BadIdea } = require("../../db/models");
 const router = express.Router();
+const { requireAuth } = require("../../utils/auth");
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -35,7 +36,7 @@ router.post('/stored-ideas', asyncHandler(async (req, res) => {
     return res.json(newIdea)
 }))
 
-router.get('stored-ideas', asyncHandler(async (req, res) => {
+router.get('/stored-ideas', requireAuth, asyncHandler(async (req, res) => {
     console.log(req.body)
 
     const badideas = await BadIdea.findAll({

@@ -33,7 +33,6 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: '/',
         prepareHeaders: async (headers, endpoints) => {
-            console.log('fired base')
             const authToken = getCSRFCookie("XSRF-TOKEN")
 
             if (authToken) {
@@ -87,7 +86,7 @@ export const api = createApi({
             })
         }),
         // retrieve stired bad ideas for a user
-        getStoredBadIdeas: builder.mutation({
+        getStoredBadIdeas: builder.query({
             query: () => ({
                 url: '/api/badideas/stored-ideas',
                 method: 'GET'
@@ -108,4 +107,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery, useGetBadIdeaMutation, useStoreBadIdeasMutation } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery, useGetBadIdeaMutation, useStoreBadIdeasMutation, useGetStoredBadIdeasQuery } = api;
