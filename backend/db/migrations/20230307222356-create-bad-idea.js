@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idea: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       userId: {
         type: Sequelize.INTEGER,

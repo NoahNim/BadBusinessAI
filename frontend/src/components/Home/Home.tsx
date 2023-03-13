@@ -1,17 +1,23 @@
 import Button from 'react-bootstrap/Button';
-import { useGetBadIdeaMutation } from '../../redux/app/services/api';
+import { useGetBadIdeaMutation, useStoreBadIdeasMutation } from '../../redux/app/services/api';
 import { useState } from 'react';
+import { useAppSelector } from '../../redux/app/hooks';
 
 export const Home = () => {
     const [badidea, setBadIdea] = useState<any>();
     const [retrieveBadidea, { isError, isLoading }] = useGetBadIdeaMutation()
+    const [storeBadIdea] = useStoreBadIdeasMutation();
+    const sessionUser = useAppSelector((state) => state?.auth?.user)
 
     const getBadIdeaHandler = async () => {
         try {
-            const res = await retrieveBadidea("");
-            if (res) {
-                setBadIdea(res)
-            }
+            const idea = await retrieveBadidea("");
+            setBadIdea(idea)
+            console.log(idea)
+            if (sessionUser) {
+                storeBadIdea({ idea, userId: sessionUser.id });
+                console.log("Successful storage")
+            };
         } catch (error) {
             console.log(error)
         }

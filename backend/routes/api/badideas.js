@@ -22,19 +22,27 @@ router.post('/chatgpt', asyncHandler(async (req, res) => {
 }))
 
 router.post('/stored-ideas', asyncHandler(async (req, res) => {
-    const idea = req.body;
-    const userId = req.user.id
+    const idea = req.body.idea.data;
+    const userId = req.body.userId
 
     const newIdea = await BadIdea.build({
         userId,
         idea
     })
 
+    await newIdea.save();
+
     return res.json(newIdea)
 }))
 
-router.get('storedideas', asyncHandler(async (req, res) => {
-    const badideas = await BadIdea.findAll();
+router.get('stored-ideas', asyncHandler(async (req, res) => {
+    console.log(req.body)
+
+    const badideas = await BadIdea.findAll({
+        where: {
+            userId: req.user.id
+        }
+    });
 
     return res.json(badideas)
 }))

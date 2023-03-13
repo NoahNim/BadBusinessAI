@@ -86,6 +86,21 @@ export const api = createApi({
                 method: "POST"
             })
         }),
+        // retrieve stired bad ideas for a user
+        getStoredBadIdeas: builder.mutation({
+            query: () => ({
+                url: '/api/badideas/stored-ideas',
+                method: 'GET'
+            })
+        }),
+        // stored a bad idea
+        storeBadIdeas: builder.mutation({
+            query: (storedData) => ({
+                url: '/api/badideas/stored-ideas',
+                method: 'POST',
+                body: JSON.stringify(storedData)
+            })
+        }),
         // protectedmutation
         protected: builder.mutation<{ message: string }, void>({
             query: () => 'protected',
@@ -93,4 +108,4 @@ export const api = createApi({
     })
 })
 
-export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery, useGetBadIdeaMutation } = api;
+export const { useLoginMutation, useRestoreQuery, useRestoreUserMutation, useSignupMutation, useLazyLogoutQuery, useGetBadIdeaMutation, useStoreBadIdeasMutation } = api;
