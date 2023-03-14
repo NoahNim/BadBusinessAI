@@ -9,6 +9,7 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+console.log(openai)
 
 
 router.post('/chatgpt', asyncHandler(async (req, res) => {
