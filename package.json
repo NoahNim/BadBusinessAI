@@ -13,6 +13,9 @@
     "start": "npm start --prefix backend",
     "build": "npm run build --prefix backend"
   },
+  "engines": {
+    "node": ">=19.9.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
