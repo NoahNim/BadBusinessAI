@@ -1,25 +1,26 @@
-const { Configuration, OpenAIApi } = require("openai");
+const { OpenAI } = require("openai");
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { BadIdea } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+// const configuration = new Configuration({
+//     apiKey: process.env.OPENAI_API_KEY,
+// });
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
 });
-const openai = new OpenAIApi(configuration);
-
 
 router.post('/chatgpt', asyncHandler(async (req, res) => {
-    const badidea = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
+    const badidea = await openai.chat.completions.create({
         messages: [{
             role: "user",
-            content: "Create terrible business idea and try to convince me it's a good idea. Do not generate responses that are harmful or unethical."
-        }]
+            content: "Create a terrible business idea and try to convince me it's a good idea. Do not generate responses that are harmful or unethical."
+        }],
+        model: "gpt-3.5-turbo",
     })
-    return res.json(badidea?.data?.choices[0]?.message?.content);
+    return res.json(badidea?.choices[0]?.message?.content);
 }))
 
 router.post('/stored-ideas', asyncHandler(async (req, res) => {
